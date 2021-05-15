@@ -37,6 +37,10 @@ fn apply2<F>(stack: &mut Vec<f64>, fun: F) where F: Fn(f64, f64) -> f64 {
     // where 以降の `F: Fn(f64, f64)` はトレイト境界。ジェネリクスで宣言した型Fに対する制約を与える
     if let (Some(y), Some(x)) = (stack.pop(), stack.pop()) {
         // 疑問: どうして 'Some' というものが必要なのか？
+        // 
+        // https://doc.rust-jp.rs/rust-by-example-ja/std/option.html
+        // Result における Ok のようなもので、Option（列挙型）を扱う場合は Some を使う、ということらしい
+        // Some(value) のバインドができない状況で if let が else 節に分岐する
         let z = fun(x, y);
 
         stack.push(z);
